@@ -1,0 +1,26 @@
+{
+  "name": "http-api-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Test Completed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankitasahaa/http-api-assignment.git"
+  },
+  "author": "Ankita Saha",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ankitasahaa/http-api-assignment/issues"
+  },
+  "homepage": "https://github.com/ankitasahaa/http-api-assignment#readme",
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  }
+}
