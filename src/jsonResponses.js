@@ -8,12 +8,11 @@ const respondJSON = (request, response, status, object) => {
   response.end();
 };
 
-const success = (request, response, body) => {
+const success = (request, response) => {
   const responseJSON = {
     message: 'This is a successful response',
     id: 'success',
   };
-  console.log('hey', body);
 
   return respondJSON(request, response, 200, responseJSON);
 };
@@ -27,7 +26,7 @@ const badRequest = (request, response, params) => {
 
   if (!params.valid || !params.vald === 'true') {
     responseJSON.message = 'Missing valid query parameter set to true';
-    status = 200;
+    status = 400;
   }
 
   return respondJSON(request, response, status, responseJSON);
@@ -42,7 +41,7 @@ const unauthorized = (request, response, params) => {
 
   if (params.loggedIn || params.loggedIn === 'true') {
     responseJSON.message = 'This request has the required parameters';
-    status = 200;
+    status = 401;
   }
 
   return respondJSON(request, response, status, responseJSON);
@@ -54,7 +53,7 @@ const forbidden = (request, response) => {
     id: 'forbidden',
   };
 
-  return respondJSON(request, response, 401, responseJSON);
+  return respondJSON(request, response, 403, responseJSON);
 };
 
 const internalError = (request, response) => {
