@@ -21,10 +21,14 @@ const urlStruct = {
 const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
   const params = query.parse(parsedUrl.query);
+  const types = request.headers.accept.split(',');
+  const mainType = types[0] || 'application/json';
   console.log(request.method);
   console.log(parsedUrl);
 
-  if (urlStruct[parsedUrl.pathname]) {
+  if (urlStruct[parsedUrl.pathname] && mainType) {
+    urlStruct[parsedUrl.pathname](request, response, params, mainType);
+  } else if (urlStruct[parsedUrl.pathname]) {
     urlStruct[parsedUrl.pathname](request, response, params);
   } else {
     urlStruct.notFound(request, response, params);

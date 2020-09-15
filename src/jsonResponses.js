@@ -1,23 +1,23 @@
-const respondJSON = (request, response, status, object) => {
-  const headers = {
+const respondJSON = (request, response, status, object, type) => {
+  /* const headers = {
     'Content-type': 'application/json',
-  };
+  }; */
 
-  response.writeHead(status, headers);
+  response.writeHead(status, { 'Content-type': `${type || 'application/json'}` });
   response.write(JSON.stringify(object));
   response.end();
 };
 
-const success = (request, response) => {
+const success = (request, response, params, type) => {
   const responseJSON = {
     message: 'This is a successful response',
     id: 'success',
   };
 
-  return respondJSON(request, response, 200, responseJSON);
+  respondJSON(request, response, 200, responseJSON, type);
 };
 
-const badRequest = (request, response, params) => {
+const badRequest = (request, response, params, type) => {
   const responseJSON = {
     message: 'This request has the required parameters',
     id: 'badRequest',
@@ -29,10 +29,10 @@ const badRequest = (request, response, params) => {
     status = 400;
   }
 
-  return respondJSON(request, response, status, responseJSON);
+  respondJSON(request, response, status, responseJSON, type);
 };
 
-const unauthorized = (request, response, params) => {
+const unauthorized = (request, response, params, type) => {
   let status = 401;
   const responseJSON = {
     message: 'Missing loggedIn query parameter set to yes',
@@ -44,43 +44,43 @@ const unauthorized = (request, response, params) => {
     status = 401;
   }
 
-  return respondJSON(request, response, status, responseJSON);
+  respondJSON(request, response, status, responseJSON, type);
 };
 
-const forbidden = (request, response) => {
+const forbidden = (request, response, params, type) => {
   const responseJSON = {
     message: 'You do not have access to this content',
     id: 'forbidden',
   };
 
-  return respondJSON(request, response, 403, responseJSON);
+  respondJSON(request, response, 403, responseJSON, type);
 };
 
-const internalError = (request, response) => {
+const internalError = (request, response, params, type) => {
   const responseJSON = {
     message: 'Internal Server Error. Something went wrong.',
     id: 'internalError',
   };
 
-  return respondJSON(request, response, 500, responseJSON);
+  respondJSON(request, response, 500, responseJSON, type);
 };
 
-const notImplemented = (request, response) => {
+const notImplemented = (request, response, params, type) => {
   const responseJSON = {
     message: 'A get request for this page has not been implemented yet. Check again later for updated content',
     id: 'notImplemented',
   };
 
-  return respondJSON(request, response, 501, responseJSON);
+  respondJSON(request, response, 501, responseJSON, type);
 };
 
-const notFound = (request, response) => {
+const notFound = (request, response, params, type) => {
   const responseJSON = {
     message: 'Page you are looking for was not found',
     id: 'notFound',
   };
 
-  return respondJSON(request, response, 404, responseJSON);
+  respondJSON(request, response, 404, responseJSON, type);
 };
 
 module.exports = {
